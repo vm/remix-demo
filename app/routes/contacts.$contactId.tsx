@@ -14,15 +14,13 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   return json({ contact });
 };
 
-export const action = async ({
-  params, request
-}: ActionFunctionArgs) => {
+export const action = async ({ params, request }: ActionFunctionArgs) => {
   invariant(params.contactId, "Missing contactId param");
-  const formData = await request.formData()
+  const formData = await request.formData();
   return updateContact(params.contactId, {
-    favorite: formData.get('favorite') === 'true'
-  })
-}
+    favorite: formData.get("favorite") === "true",
+  });
+};
 
 export default function Contact() {
   const { contact } = useLoaderData<typeof loader>();
@@ -87,8 +85,10 @@ export default function Contact() {
 const Favorite: FunctionComponent<{
   contact: Pick<ContactRecord, "favorite">;
 }> = ({ contact }) => {
-  const fetcher = useFetcher()
-  const favorite = fetcher.formData ? fetcher.formData.get('favorite') === 'true' : contact.favorite;
+  const fetcher = useFetcher();
+  const favorite = fetcher.formData
+    ? fetcher.formData.get("favorite") === "true"
+    : contact.favorite;
 
   return (
     <fetcher.Form method="post">

@@ -45,7 +45,9 @@ export default function App() {
   const navigation = useNavigation();
   const submit = useSubmit();
 
-  const searching = navigation.location && new URLSearchParams(navigation.location.search).has('q')
+  const searching =
+    navigation.location &&
+    new URLSearchParams(navigation.location.search).has("q");
 
   useEffect(() => {
     const searchField = document.getElementById("q");
@@ -70,8 +72,8 @@ export default function App() {
               id="search-form"
               role="search"
               onChange={(event) => {
-                const isFirstSearch = q === null
-                submit(event.currentTarget, { replace: !isFirstSearch })
+                const isFirstSearch = q === null;
+                submit(event.currentTarget, { replace: !isFirstSearch });
               }}
             >
               <input
@@ -121,7 +123,9 @@ export default function App() {
         </div>
         <div
           id="detail"
-          className={navigation.state === "loading" && !searching ? "loading" : ""}
+          className={
+            navigation.state === "loading" && !searching ? "loading" : ""
+          }
         >
           <Outlet />
         </div>
