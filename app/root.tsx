@@ -118,7 +118,7 @@ export default function App() {
         </div>
         <div
           id="detail"
-          className={navigation.state === "loading" ? "loading" : ""}
+          className={navigation.state === "loading" && !searching ? "loading" : ""}
         >
           <Outlet />
         </div>
