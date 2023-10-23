@@ -7,15 +7,15 @@ import invariant from "tiny-invariant";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   invariant(params.contactId, "Missing contactId param");
-  const contact = await getContact(params.contactId)
+  const contact = await getContact(params.contactId);
   if (!contact) {
     throw new Response("Not Found", { status: 404 });
   }
-  return json({ contact })
-}
+  return json({ contact });
+};
 
 export default function Contact() {
-  const { contact } = useLoaderData<typeof loader>()
+  const { contact } = useLoaderData<typeof loader>();
 
   return (
     <div id="contact">
@@ -41,9 +41,7 @@ export default function Contact() {
 
         {contact.twitter ? (
           <p>
-            <a
-              href={`https://twitter.com/${contact.twitter}`}
-            >
+            <a href={`https://twitter.com/${contact.twitter}`}>
               {contact.twitter}
             </a>
           </p>
@@ -61,7 +59,7 @@ export default function Contact() {
             method="post"
             onSubmit={(event) => {
               const response = confirm(
-                "Please confirm you want to delete this record."
+                "Please confirm you want to delete this record.",
               );
               if (!response) {
                 event.preventDefault();
@@ -84,11 +82,7 @@ const Favorite: FunctionComponent<{
   return (
     <Form method="post">
       <button
-        aria-label={
-          favorite
-            ? "Remove from favorites"
-            : "Add to favorites"
-        }
+        aria-label={favorite ? "Remove from favorites" : "Add to favorites"}
         name="favorite"
         value={favorite ? "false" : "true"}
       >

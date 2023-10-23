@@ -5,9 +5,7 @@ import invariant from "tiny-invariant";
 
 import { getContact } from "../data";
 
-export const loader = async ({
-  params,
-}: LoaderFunctionArgs) => {
+export const loader = async ({ params }: LoaderFunctionArgs) => {
   invariant(params.contactId, "Missing contactId param");
   const contact = await getContact(params.contactId);
   if (!contact) {
@@ -60,11 +58,7 @@ export default function EditContact() {
       </label>
       <label>
         <span>Notes</span>
-        <textarea
-          defaultValue={contact.notes}
-          name="notes"
-          rows={6}
-        />
+        <textarea defaultValue={contact.notes} name="notes" rows={6} />
       </label>
       <p>
         <button type="submit">Save</button>
