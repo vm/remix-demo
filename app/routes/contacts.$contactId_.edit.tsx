@@ -15,11 +15,11 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 };
 
 export const action = async ({ params, request }: ActionFunctionArgs) => {
-  invariant(params.contactId, "Missing contactId param")
-  const formData = await request.formData()
-  const updates = Object.fromEntries(formData)
-  await updateContact(params.contactId, updates)
-  return redirect(`/contacts/${params.contactId}`)
+  invariant(params.contactId, "Missing contactId param");
+  const formData = await request.formData();
+  const updates = Object.fromEntries(formData);
+  await updateContact(params.contactId, updates);
+  return redirect(`/contacts/${params.contactId}`);
 };
 
 export default function EditContact() {
