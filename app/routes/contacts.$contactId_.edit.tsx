@@ -24,7 +24,7 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
 
 export default function EditContact() {
   const { contact } = useLoaderData<typeof loader>();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <Form id="contact-form" method="post">
@@ -71,7 +71,9 @@ export default function EditContact() {
       </label>
       <p>
         <button type="submit">Save</button>
-        <button type="button" onClick={() => navigate(-1)}>Cancel</button>
+        <button type="button" onClick={() => navigate(-1)}>
+          Cancel
+        </button>
       </p>
     </Form>
   );
