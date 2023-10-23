@@ -45,6 +45,8 @@ export default function App() {
   const navigation = useNavigation();
   const submit = useSubmit();
 
+  const searching = navigation.location && new URLSearchParams(navigation.location.search).has('q')
+
   useEffect(() => {
     const searchField = document.getElementById("q");
     if (searchField instanceof HTMLInputElement) {
@@ -76,8 +78,9 @@ export default function App() {
                 defaultValue={q || ""}
                 type="search"
                 name="q"
+                className={searching ? "loading" : ""}
               />
-              <div id="search-spinner" aria-hidden hidden={true} />
+              <div id="search-spinner" aria-hidden hidden={!searching} />
             </Form>
             <Form method="post">
               <button type="submit">New</button>
