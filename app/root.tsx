@@ -1,3 +1,5 @@
+import { ClerkApp } from "@clerk/remix";
+import { rootAuthLoader } from "@clerk/remix/ssr.server";
 import {
   json,
   redirect,
@@ -28,11 +30,13 @@ export const links: LinksFunction = () => [
   { rel: "stylesheet", href: appStylesHref },
 ];
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-  const url = new URL(request.url);
-  const q = url.searchParams.get("q");
-  const contacts = await getContacts(q);
-  return json({ contacts, q });
+export const loader = async (args: LoaderFunctionArgs) => {
+  return rootAuthLoader(args, async ({ request }) => {
+    const url = new URL(request.url);
+    const q = url.searchParams.get("q");
+    const contacts = await getContacts(q);
+    return json({ contacts, q });
+  })
 };
 
 export const action = async () => {
@@ -40,7 +44,7 @@ export const action = async () => {
   return redirect(`/contacts/${contact.id}/edit`);
 };
 
-export default function App() {
+function App() {
   const { contacts, q } = useLoaderData<typeof loader>();
   const navigation = useNavigation();
   const submit = useSubmit();
@@ -137,3 +141,5 @@ export default function App() {
     </html>
   );
 }
+
+export default ClerkApp(App)
