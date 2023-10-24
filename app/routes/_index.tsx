@@ -1,9 +1,21 @@
+import { UserButton } from "@clerk/remix";
+import { getAuth } from "@clerk/remix/ssr.server";
+import { LoaderFunction, redirect } from "@remix-run/node";
+ 
+export const loader: LoaderFunction = async (args) => {
+  const { userId } = await getAuth(args);
+  if (!userId) {
+    return redirect("/signin");
+  }
+  return {};
+}
+ 
 export default function Index() {
   return (
-    <p id="index-page">
-      This is a demo for Remix.
-      <br />
-      Check out <a href="https://remix.run">the docs at remix.run</a>.
-    </p>
+    <div>
+        <h1>Index route</h1>
+        <p>You are signed in!</p>
+        <UserButton afterSignOutUrl="/"/>
+    </div>
   );
 }

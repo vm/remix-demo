@@ -1,4 +1,4 @@
-import { ClerkApp } from "@clerk/remix";
+import { ClerkApp, ClerkErrorBoundary } from "@clerk/remix";
 import { rootAuthLoader } from "@clerk/remix/ssr.server";
 import {
   json,
@@ -29,6 +29,8 @@ import { useEffect } from "react";
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: appStylesHref },
 ];
+
+export const ErrorBoundary = ClerkErrorBoundary();
 
 export const loader = async (args: LoaderFunctionArgs) => {
   return rootAuthLoader(args, async ({ request }) => {
